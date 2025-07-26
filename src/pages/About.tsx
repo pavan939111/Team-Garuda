@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, Calendar, Users, Target, Award, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Calendar, Users, Target, Award, ChevronLeft, ChevronRight, X, Settings, Cpu, Zap, Wrench, BarChart3, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
 
@@ -14,6 +14,7 @@ interface YearData {
   achievements: string[];
   teamCards: TeamCard[];
   albumItems: AlbumItem[];
+  departments: Department[];
 }
 
 interface TeamMember {
@@ -29,6 +30,7 @@ interface TeamCard {
   name: string;
   role: string;
   department: string;
+  category: string;
   bio: string;
   image: string;
 }
@@ -47,8 +49,21 @@ interface TimelineEvent {
   description: string;
 }
 
+interface Department {
+  id: number;
+  name: string;
+  image: string;
+  icon: React.ComponentType<{ className?: string }>;
+  shortDescription: string;
+  fullDescription: string;
+  responsibilities: string[];
+  technologies: string[];
+}
+
 const About = () => {
   const [selectedYear, setSelectedYear] = useState<string>('2023-24');
+  const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null);
+  const [showDepartmentModal, setShowDepartmentModal] = useState(false);
 
   const yearData: YearData[] = [
     {
@@ -130,20 +145,120 @@ const About = () => {
         'Best Technical Paper at RGUKT Tech Fest 2024',
         'Featured in National Engineering Magazine'
       ],
+      departments: [
+        {
+          id: 1,
+          name: 'Mechanical Engineering',
+          image: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=500',
+          icon: Settings,
+          shortDescription: 'Designing and building the core mechanical systems',
+          fullDescription: 'Our Mechanical Engineering department is responsible for the structural design, chassis development, and mechanical systems integration of our go-kart. They ensure optimal performance, safety, and durability through innovative engineering solutions.',
+          responsibilities: [
+            'Chassis design and structural analysis',
+            'Mechanical system integration',
+            'Performance optimization',
+            'Material selection and testing',
+            'Manufacturing process planning'
+          ],
+          technologies: ['CAD Software', 'FEA Analysis', 'CNC Machining', '3D Printing', 'Welding']
+        },
+        {
+          id: 2,
+          name: 'Electronics & Software',
+          image: 'https://images.pexels.com/photos/1181346/pexels-photo-1181346.jpeg?auto=compress&cs=tinysrgb&w=500',
+          icon: Cpu,
+          shortDescription: 'Developing intelligent control systems and software',
+          fullDescription: 'The Electronics & Software department develops the brain of our go-kart, creating intelligent control systems, AI-assisted features, and real-time monitoring solutions that give us a competitive edge.',
+          responsibilities: [
+            'AI algorithm development',
+            'Control system programming',
+            'Sensor integration',
+            'Real-time data processing',
+            'User interface development'
+          ],
+          technologies: ['Python', 'C++', 'Arduino', 'Raspberry Pi', 'Machine Learning', 'IoT']
+        },
+        {
+          id: 3,
+          name: 'Power Systems',
+          image: 'https://images.pexels.com/photos/1181291/pexels-photo-1181291.jpeg?auto=compress&cs=tinysrgb&w=500',
+          icon: Zap,
+          shortDescription: 'Managing electrical power and energy systems',
+          fullDescription: 'Our Power Systems team focuses on electrical power management, battery optimization, and energy efficiency. They ensure maximum performance while maintaining safety and reliability of all electrical components.',
+          responsibilities: [
+            'Battery management system design',
+            'Power distribution optimization',
+            'Motor control systems',
+            'Regenerative braking implementation',
+            'Electrical safety protocols'
+          ],
+          technologies: ['Power Electronics', 'Battery Technology', 'Motor Controllers', 'PCB Design', 'Energy Management']
+        },
+        {
+          id: 4,
+          name: 'Design & Testing',
+          image: 'https://images.pexels.com/photos/1181394/pexels-photo-1181394.jpeg?auto=compress&cs=tinysrgb&w=500',
+          icon: Wrench,
+          shortDescription: 'Ensuring quality through rigorous testing',
+          fullDescription: 'The Design & Testing department ensures our innovations meet the highest standards of performance and safety through comprehensive testing protocols and quality assurance measures.',
+          responsibilities: [
+            'Aerodynamic design optimization',
+            'Performance testing protocols',
+            'Safety system validation',
+            'Quality assurance processes',
+            'Competition compliance verification'
+          ],
+          technologies: ['Wind Tunnel Testing', 'Data Acquisition', 'Simulation Software', 'Testing Equipment', 'Quality Control']
+        },
+        {
+          id: 5,
+          name: 'Data Analytics',
+          image: 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=500',
+          icon: BarChart3,
+          shortDescription: 'Transforming data into actionable insights',
+          fullDescription: 'Our Data Analytics team processes performance data to provide insights that drive continuous improvement and optimization of our go-kart systems.',
+          responsibilities: [
+            'Performance data analysis',
+            'Predictive modeling',
+            'Optimization algorithms',
+            'Real-time monitoring dashboards',
+            'Performance reporting'
+          ],
+          technologies: ['Python', 'R', 'Machine Learning', 'Data Visualization', 'Statistical Analysis']
+        },
+        {
+          id: 6,
+          name: 'Safety & Compliance',
+          image: 'https://images.pexels.com/photos/1181316/pexels-photo-1181316.jpeg?auto=compress&cs=tinysrgb&w=500',
+          icon: Shield,
+          shortDescription: 'Ensuring safety standards and regulatory compliance',
+          fullDescription: 'The Safety & Compliance department ensures all systems meet safety standards and competition regulations while implementing comprehensive safety protocols.',
+          responsibilities: [
+            'Safety protocol development',
+            'Regulatory compliance verification',
+            'Risk assessment and mitigation',
+            'Emergency system design',
+            'Safety training coordination'
+          ],
+          technologies: ['Safety Standards', 'Risk Analysis', 'Compliance Testing', 'Emergency Systems', 'Safety Protocols']
+        }
+      ],
       teamCards: [
         {
           id: 1,
           name: 'Arjun Reddy',
-          role: 'Lead Designer',
+          role: 'Team Lead',
           department: 'Mechanical Engineering',
+          category: 'Leadership',
           bio: 'Passionate about sustainable transportation and innovative vehicle design. Leads our mechanical engineering initiatives.',
           image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400'
         },
         {
           id: 2,
           name: 'Priya Sharma',
-          role: 'Software Developer',
-          department: 'Electronics & Computer Science',
+          role: 'Software Lead',
+          department: 'Electronics & Software',
+          category: 'Leadership',
           bio: 'Specializes in AI and machine learning applications for automotive systems. Develops cutting-edge software solutions.',
           image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400'
         },
@@ -151,7 +266,8 @@ const About = () => {
           id: 3,
           name: 'Vikash Kumar',
           role: 'Data Analyst',
-          department: 'Computer Science',
+          department: 'Data Analytics',
+          category: 'Analytics',
           bio: 'Expert in data analytics and performance optimization. Transforms complex data into actionable insights.',
           image: 'https://images.pexels.com/photos/1559486/pexels-photo-1559486.jpeg?auto=compress&cs=tinysrgb&w=400'
         },
@@ -159,7 +275,8 @@ const About = () => {
           id: 4,
           name: 'Sneha Patel',
           role: 'Testing Engineer',
-          department: 'Mechanical Engineering',
+          department: 'Design & Testing',
+          category: 'Quality Assurance',
           bio: 'Ensures safety and performance standards through rigorous testing and quality assurance protocols.',
           image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=400'
         },
@@ -167,17 +284,37 @@ const About = () => {
           id: 5,
           name: 'Rahul Gupta',
           role: 'Electronics Engineer',
-          department: 'Electronics Engineering',
+          department: 'Power Systems',
+          category: 'Technical',
           bio: 'Designs and implements electronic systems for vehicle control and monitoring applications.',
           image: 'https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=400'
         },
         {
           id: 6,
           name: 'Anjali Singh',
-          role: 'Project Manager',
-          department: 'Management',
-          bio: 'Coordinates project activities and ensures timely delivery of milestones while maintaining team productivity.',
+          role: 'Safety Coordinator',
+          department: 'Safety & Compliance',
+          category: 'Compliance',
+          bio: 'Coordinates safety protocols and ensures compliance with competition regulations and industry standards.',
           image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=400'
+        },
+        {
+          id: 7,
+          name: 'Kiran Nair',
+          role: 'Mechanical Designer',
+          department: 'Mechanical Engineering',
+          category: 'Design',
+          bio: 'Specializes in chassis design and structural optimization for high-performance applications.',
+          image: 'https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=400'
+        },
+        {
+          id: 8,
+          name: 'Riya Menon',
+          role: 'Control Systems Engineer',
+          department: 'Electronics & Software',
+          category: 'Technical',
+          bio: 'Develops control algorithms and embedded systems for autonomous vehicle features.',
+          image: 'https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=400'
         }
       ],
       albumItems: [
@@ -306,12 +443,35 @@ const About = () => {
         'Sustainability Award for Eco-friendly Materials',
         'Selected for State-level Innovation Showcase'
       ],
+      departments: [
+        {
+          id: 1,
+          name: 'Mechanical Engineering',
+          image: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=500',
+          icon: Settings,
+          shortDescription: 'Designing aerodynamic systems and structures',
+          fullDescription: 'Our Mechanical Engineering department focused on aerodynamic optimization and structural integrity, developing advanced manufacturing techniques and material selection processes.',
+          responsibilities: ['Aerodynamic design', 'Structural analysis', 'Manufacturing planning', 'Material testing'],
+          technologies: ['Wind Tunnel Testing', 'CFD Analysis', 'Advanced Materials', 'Precision Manufacturing']
+        },
+        {
+          id: 2,
+          name: 'Electrical Systems',
+          image: 'https://images.pexels.com/photos/1181346/pexels-photo-1181346.jpeg?auto=compress&cs=tinysrgb&w=500',
+          icon: Zap,
+          shortDescription: 'Developing reliable electrical systems',
+          fullDescription: 'The Electrical Systems department developed robust electrical architecture and safety systems for improved reliability and performance.',
+          responsibilities: ['Electrical design', 'Safety systems', 'Power management', 'System integration'],
+          technologies: ['Circuit Design', 'Safety Protocols', 'Power Electronics', 'System Testing']
+        }
+      ],
       teamCards: [
         {
           id: 1,
           name: 'Rohit Verma',
           role: 'Team Captain',
-          department: 'Manufacturing Engineering',
+          department: 'Mechanical Engineering',
+          category: 'Leadership',
           bio: 'Experienced in manufacturing processes and quality control. Leads our production initiatives.',
           image: 'https://images.pexels.com/photos/1462980/pexels-photo-1462980.jpeg?auto=compress&cs=tinysrgb&w=400'
         },
@@ -319,7 +479,8 @@ const About = () => {
           id: 2,
           name: 'Kavya Reddy',
           role: 'Aerodynamics Specialist',
-          department: 'Aerospace Engineering',
+          department: 'Mechanical Engineering',
+          category: 'Design',
           bio: 'Expert in fluid dynamics and aerodynamic optimization for high-performance vehicles.',
           image: 'https://images.pexels.com/photos/1065084/pexels-photo-1065084.jpeg?auto=compress&cs=tinysrgb&w=400'
         },
@@ -327,7 +488,8 @@ const About = () => {
           id: 3,
           name: 'Suresh Kumar',
           role: 'Electrical Engineer',
-          department: 'Electrical Engineering',
+          department: 'Electrical Systems',
+          category: 'Technical',
           bio: 'Specializes in electrical systems design and safety mechanisms for automotive applications.',
           image: 'https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=400'
         },
@@ -335,7 +497,8 @@ const About = () => {
           id: 4,
           name: 'Meera Joshi',
           role: 'Materials Engineer',
-          department: 'Materials Science',
+          department: 'Mechanical Engineering',
+          category: 'Technical',
           bio: 'Focuses on sustainable materials and lightweight composites for vehicle construction.',
           image: 'https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=400'
         }
@@ -390,6 +553,28 @@ const About = () => {
     }
   };
 
+  const openDepartmentModal = (department: Department) => {
+    setSelectedDepartment(department);
+    setShowDepartmentModal(true);
+  };
+
+  const closeDepartmentModal = () => {
+    setShowDepartmentModal(false);
+    setSelectedDepartment(null);
+  };
+
+  const getDepartmentMembers = (departmentName: string) => {
+    return currentYearData.teamCards.filter(member => member.department === departmentName);
+  };
+
+  const groupTeamByCategory = () => {
+    const categories = Array.from(new Set(currentYearData.teamCards.map(member => member.category)));
+    return categories.map(category => ({
+      category,
+      members: currentYearData.teamCards.filter(member => member.category === category)
+    }));
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* <Navbar /> */}
@@ -441,7 +626,6 @@ const About = () => {
                 {currentYearData.description}
               </p>
             </div>
-
 
             {/* Timeline */}
             <div>
@@ -511,6 +695,40 @@ const About = () => {
                   <div key={index} className="flex items-center space-x-3 bg-card/50 rounded-lg p-4">
                     <Award className="h-6 w-6 text-accent flex-shrink-0" />
                     <span className="text-foreground font-medium">{achievement}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Departments Section */}
+            <div>
+              <div className="flex items-center space-x-3 mb-8">
+                <Settings className="h-8 w-8 text-primary" />
+                <h3 className="text-2xl font-bold">Our Departments</h3>
+                <p className="text-muted-foreground">Specialized teams driving innovation</p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {currentYearData.departments.map((department) => (
+                  <div 
+                    key={department.id} 
+                    className="bg-card rounded-lg border border-border overflow-hidden shadow-elegant hover:shadow-primary/20 transition-all duration-300 cursor-pointer hover:scale-105"
+                    onClick={() => openDepartmentModal(department)}
+                  >
+                    <div className="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 overflow-hidden">
+                      <img
+                        src={department.image}
+                        alt={department.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <department.icon className="h-6 w-6 text-primary" />
+                        <h4 className="font-bold text-foreground">{department.name}</h4>
+                      </div>
+                      <p className="text-muted-foreground text-sm">{department.shortDescription}</p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -621,32 +839,43 @@ const About = () => {
               </div>
             </div>
 
-            {/* Team Member Cards */}
+            {/* Team Member Cards - Organized by Category */}
             <div>
               <div className="flex items-center space-x-3 mb-8">
                 <Users className="h-8 w-8 text-primary" />
                 <h3 className="text-2xl font-bold">Meet Our Team</h3>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {currentYearData.teamCards.map((member) => (
-                  <div key={member.id} className="bg-card rounded-lg border border-border p-6 shadow-elegant hover:shadow-primary/20 transition-shadow">
-                    <div className="flex flex-col items-center text-center space-y-4">
-                      <div className="w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 border-2 border-primary/20">
-                        <img
-                          src={member.image}
-                          alt={member.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-foreground">{member.name}</h4>
-                        <p className="text-primary font-semibold text-sm">{member.role}</p>
-                        <p className="text-accent text-sm">{member.department}</p>
-                      </div>
-                      <p className="text-muted-foreground text-sm leading-relaxed">
-                        {member.bio}
-                      </p>
+              <div className="space-y-12">
+                {groupTeamByCategory().map((categoryGroup) => (
+                  <div key={categoryGroup.category}>
+                    <h4 className="text-xl font-semibold mb-6 text-center">
+                      <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                        {categoryGroup.category}
+                      </span>
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {categoryGroup.members.map((member) => (
+                        <div key={member.id} className="bg-card rounded-lg border border-border p-6 shadow-elegant hover:shadow-primary/20 transition-shadow">
+                          <div className="flex flex-col items-center text-center space-y-4">
+                            <div className="w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 border-2 border-primary/20">
+                              <img
+                                src={member.image}
+                                alt={member.name}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-bold text-foreground">{member.name}</h4>
+                              <p className="text-primary font-semibold text-sm">{member.role}</p>
+                              <p className="text-accent text-sm">{member.department}</p>
+                            </div>
+                            <p className="text-muted-foreground text-sm leading-relaxed">
+                              {member.bio}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ))}
@@ -655,6 +884,86 @@ const About = () => {
           </div>
         </div>
       </div>
+
+      {/* Department Modal */}
+      {showDepartmentModal && selectedDepartment && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="bg-card rounded-lg border border-border max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center space-x-3">
+                  <selectedDepartment.icon className="h-8 w-8 text-primary" />
+                  <h2 className="text-2xl font-bold">{selectedDepartment.name}</h2>
+                </div>
+                <Button variant="ghost" size="icon" onClick={closeDepartmentModal}>
+                  <X className="h-6 w-6" />
+                </Button>
+              </div>
+
+              <div className="space-y-6">
+                <div className="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg overflow-hidden">
+                  <img
+                    src={selectedDepartment.image}
+                    alt={selectedDepartment.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-3">About This Department</h3>
+                  <p className="text-muted-foreground leading-relaxed">{selectedDepartment.fullDescription}</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3">Key Responsibilities</h3>
+                    <ul className="space-y-2">
+                      {selectedDepartment.responsibilities.map((responsibility, index) => (
+                        <li key={index} className="flex items-start space-x-2">
+                          <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-muted-foreground text-sm">{responsibility}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3">Technologies & Tools</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedDepartment.technologies.map((tech, index) => (
+                        <span key={index} className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full border border-primary/20">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Department Members</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {getDepartmentMembers(selectedDepartment.name).map((member) => (
+                      <div key={member.id} className="flex items-center space-x-3 bg-background/50 rounded-lg p-3">
+                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/20">
+                          <img
+                            src={member.image}
+                            alt={member.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-foreground">{member.name}</h4>
+                          <p className="text-primary text-sm">{member.role}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
