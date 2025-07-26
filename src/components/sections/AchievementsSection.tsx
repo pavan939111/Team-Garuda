@@ -94,11 +94,11 @@ const AchievementsSection = () => {
   ];
 
   return (
-    <section id="achievements" className="py-20 relative">
+    <section id="achievements" className="py-1 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold font-montserrat mb-4">
-            Our{' '}
+          
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Achievements
             </span>

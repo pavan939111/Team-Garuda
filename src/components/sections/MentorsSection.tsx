@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { GraduationCap, Award, BookOpen, Users } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import vchandrasekhar from '@/assets/vchandrasekhar.jpg';
@@ -71,13 +70,6 @@ const MentorsSection = () => {
     }
   ];
 
-  const getIcon = (expertise: string[]) => {
-    if (expertise.some(e => e.includes('Engineering'))) return <GraduationCap className="h-8 w-8 text-primary" />;
-    if (expertise.some(e => e.includes('Electric'))) return <Award className="h-8 w-8 text-accent" />;
-    if (expertise.some(e => e.includes('IoT'))) return <BookOpen className="h-8 w-8 text-primary-glow" />;
-    return <Users className="h-8 w-8 text-accent-glow" />;
-  };
-
   return (
     <section id="mentors" className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -90,55 +82,50 @@ const MentorsSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {mentors.map((mentor) => (
-            <div
-              key={mentor.id}
-              className="card-tech cursor-pointer group transform transition-all duration-300 hover:scale-105 bg-background rounded-xl p-4 shadow-md"
-              onClick={() => setSelectedMentor(mentor)}
-            >
-              <div className="space-y-4">
-                <div className="relative">
-                  <div className="w-24 h-24 mx-auto overflow-hidden rounded-full mb-4 border-2 border-primary/30 group-hover:border-primary transition-colors">
-                    <img
-                      src={mentor.image}
-                      alt={mentor.name}
-                      className="w-full h-full object-cover"
-                    />
+        <div className="relative">
+          <div className="flex space-x-6 overflow-x-auto pb-6 scrollbar-thin scrollbar-thumb-primary scrollbar-track-muted">
+            {mentors.map((mentor) => (
+              <div
+                key={mentor.id}
+                className="flex-shrink-0 w-80 card-tech cursor-pointer group transform transition-all duration-300 hover:scale-105"
+                onClick={() => setSelectedMentor(mentor)}
+              >
+                <div className="space-y-4">
+                  <div className="relative">
+                    <div className="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-4 border-primary/30">
+                      <img src={mentor.image} alt={mentor.name} className="w-full h-full object-cover" />
+                    </div>
                   </div>
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-accent rounded-full flex items-center justify-center">
-                    {getIcon(mentor.expertise)}
+
+                  <div className="text-center space-y-2">
+                    <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                      {mentor.name}
+                    </h3>
+                    <p className="text-primary font-medium">{mentor.role}</p>
+                    <p className="text-sm text-muted-foreground">{mentor.department}</p>
                   </div>
-                </div>
 
-                <div className="text-center space-y-2">
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {mentor.name}
-                  </h3>
-                  <p className="text-primary font-medium">{mentor.role}</p>
-                  <p className="text-sm text-muted-foreground">{mentor.department}</p>
-                </div>
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {mentor.expertise.slice(0, 2).map((skill, index) => (
+                      <span key={index} className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">
+                        {skill}
+                      </span>
+                    ))}
+                    {mentor.expertise.length > 2 && (
+                      <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">
+                        +{mentor.expertise.length - 2} more
+                      </span>
+                    )}
+                  </div>
 
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {mentor.expertise.slice(0, 2).map((skill, index) => (
-                    <span key={index} className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">
-                      {skill}
-                    </span>
-                  ))}
-                  {mentor.expertise.length > 2 && (
-                    <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">
-                      +{mentor.expertise.length - 2} more
-                    </span>
-                  )}
-                </div>
-
-                <div className="text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <p className="text-sm text-muted-foreground line-clamp-2">{mentor.contribution}</p>
-                  <div className="mt-3 text-xs text-accent font-semibold">{mentor.experience} experience</div>
+                  <div className="text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <p className="text-sm text-muted-foreground line-clamp-2">{mentor.contribution}</p>
+                    <div className="mt-3 text-xs text-accent font-semibold">{mentor.experience} experience</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
@@ -153,12 +140,8 @@ const MentorsSection = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="space-y-4">
                 <div className="text-center">
-                  <div className="w-32 h-32 mx-auto overflow-hidden rounded-full mb-4 border-2 border-primary">
-                    <img
-                      src={selectedMentor.image}
-                      alt={selectedMentor.name}
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-primary/30">
+                    <img src={selectedMentor.image} alt={selectedMentor.name} className="w-full h-full object-cover" />
                   </div>
                   <h3 className="text-xl font-semibold">{selectedMentor.name}</h3>
                   <p className="text-primary font-medium">{selectedMentor.role}</p>
