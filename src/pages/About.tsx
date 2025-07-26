@@ -542,6 +542,17 @@ const About = () => {
     window.history.back();
   };
 
+  const scrollContainer = (direction: 'left' | 'right', containerId: string) => {
+    const container = document.getElementById(containerId);
+    if (container) {
+      const scrollAmount = 320; // Adjust based on card width + gap
+      container.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const scrollAlbum = (direction: 'left' | 'right', rowIndex: number) => {
     const container = document.getElementById(`album-row-${rowIndex}`);
     if (container) {
@@ -700,26 +711,47 @@ const About = () => {
               </div>
             </div>
 
-            {/* Departments Section */}
+            {/* Departments Section with Horizontal Scroll */}
             <div>
-              <div className="flex items-center space-x-3 mb-8">
-                <Settings className="h-8 w-8 text-primary" />
-                <h3 className="text-2xl font-bold">Our Departments</h3>
-                <p className="text-muted-foreground">Specialized teams driving innovation</p>
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center space-x-3">
+                  <Settings className="h-8 w-8 text-primary" />
+                  <h3 className="text-2xl font-bold">Our Departments</h3>
+                  <p className="text-muted-foreground">Specialized teams driving innovation</p>
+                </div>
+                <div className="flex space-x-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => scrollContainer('left', 'departments-container')}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => scrollContainer('right', 'departments-container')}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div
+                id="departments-container"
+                className="flex space-x-6 overflow-x-auto scrollbar-hide pb-4"
+              >
                 {currentYearData.departments.map((department) => (
                   <div 
                     key={department.id} 
-                    className="bg-card rounded-lg border border-border overflow-hidden shadow-elegant hover:shadow-primary/20 transition-all duration-300 cursor-pointer hover:scale-105"
+                    className="flex-shrink-0 w-80 bg-card rounded-lg border border-border overflow-hidden shadow-elegant hover:shadow-primary/20 transition-all duration-300 cursor-pointer hover:scale-105"
                     onClick={() => openDepartmentModal(department)}
                   >
                     <div className="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 overflow-hidden">
                       <img
                         src={department.image}
                         alt={department.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover "
                       />
                     </div>
                     <div className="p-6">
@@ -839,7 +871,7 @@ const About = () => {
               </div>
             </div>
 
-            {/* Team Member Cards - Organized by Category */}
+            {/* Team Member Cards - Organized by Category with Horizontal Scroll */}
             <div>
               <div className="flex items-center space-x-3 mb-8">
                 <Users className="h-8 w-8 text-primary" />
@@ -847,16 +879,38 @@ const About = () => {
               </div>
               
               <div className="space-y-12">
-                {groupTeamByCategory().map((categoryGroup) => (
+                {groupTeamByCategory().map((categoryGroup, categoryIndex) => (
                   <div key={categoryGroup.category}>
-                    <h4 className="text-xl font-semibold mb-6 text-center">
-                      <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                        {categoryGroup.category}
-                      </span>
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="flex items-center justify-between mb-6">
+                      <h4 className="text-xl font-semibold text-center">
+                        <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                          {categoryGroup.category}
+                        </span>
+                      </h4>
+                      <div className="flex space-x-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => scrollContainer('left', `team-category-${categoryIndex}`)}
+                        >
+                          <ChevronLeft className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => scrollContainer('right', `team-category-${categoryIndex}`)}
+                        >
+                          <ChevronRight className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <div
+                      id={`team-category-${categoryIndex}`}
+                      className="flex space-x-6 overflow-x-auto scrollbar-hide pb-4"
+                    >
                       {categoryGroup.members.map((member) => (
-                        <div key={member.id} className="bg-card rounded-lg border border-border p-6 shadow-elegant hover:shadow-primary/20 transition-shadow">
+                        <div key={member.id} className="flex-shrink-0 w-80 bg-card rounded-lg border border-border p-6 shadow-elegant hover:shadow-primary/20 transition-shadow">
                           <div className="flex flex-col items-center text-center space-y-4">
                             <div className="w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 border-2 border-primary/20">
                               <img
@@ -888,7 +942,7 @@ const About = () => {
       {/* Department Modal */}
       {showDepartmentModal && selectedDepartment && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-card rounded-lg border border-border max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-card rounded-lg border border-border max-w-3xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-3">
@@ -900,63 +954,69 @@ const About = () => {
                 </Button>
               </div>
 
-              <div className="space-y-6">
-                <div className="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg overflow-hidden">
-                  <img
-                    src={selectedDepartment.image}
-                    alt={selectedDepartment.name}
-                    className="w-full h-full object-cover"
-                  />
+              {/* Responsive layout for modal content */}
+              <div className="flex flex-col md:flex-row md:space-x-8 md:space-y-0 space-y-6">
+                {/* Image section */}
+                <div className="flex-shrink-0 flex justify-center md:justify-start">
+                  <div className="w-full max-w-xs md:max-w-[180px] md:h-[140px] aspect-video bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg overflow-hidden flex items-center justify-center">
+                    <img
+                      src={selectedDepartment.image}
+                      alt={selectedDepartment.name}
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  </div>
                 </div>
 
-                <div>
-                  <h3 className="text-xl font-semibold mb-3">About This Department</h3>
-                  <p className="text-muted-foreground leading-relaxed">{selectedDepartment.fullDescription}</p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Details section */}
+                <div className="flex-1 space-y-6">
                   <div>
-                    <h3 className="text-lg font-semibold mb-3">Key Responsibilities</h3>
-                    <ul className="space-y-2">
-                      {selectedDepartment.responsibilities.map((responsibility, index) => (
-                        <li key={index} className="flex items-start space-x-2">
-                          <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-muted-foreground text-sm">{responsibility}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <h3 className="text-xl font-semibold mb-3">About This Department</h3>
+                    <p className="text-muted-foreground leading-relaxed">{selectedDepartment.fullDescription}</p>
                   </div>
 
-                  <div>
-                    <h3 className="text-lg font-semibold mb-3">Technologies & Tools</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedDepartment.technologies.map((tech, index) => (
-                        <span key={index} className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full border border-primary/20">
-                          {tech}
-                        </span>
-                      ))}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Key Responsibilities</h3>
+                      <ul className="space-y-2">
+                        {selectedDepartment.responsibilities.map((responsibility, index) => (
+                          <li key={index} className="flex items-start space-x-2">
+                            <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                            <span className="text-muted-foreground text-sm">{responsibility}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Technologies & Tools</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedDepartment.technologies.map((tech, index) => (
+                          <span key={index} className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full border border-primary/20">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div>
-                  <h3 className="text-lg font-semibold mb-4">Department Members</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {getDepartmentMembers(selectedDepartment.name).map((member) => (
-                      <div key={member.id} className="flex items-center space-x-3 bg-background/50 rounded-lg p-3">
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/20">
-                          <img
-                            src={member.image}
-                            alt={member.name}
-                            className="w-full h-full object-cover"
-                          />
+                  <div>
+                    <h3 className="text-lg font-semibold mb-4">Department Members</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {getDepartmentMembers(selectedDepartment.name).map((member) => (
+                        <div key={member.id} className="flex items-center space-x-3 bg-background/50 rounded-lg p-3">
+                          <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/20">
+                            <img
+                              src={member.image}
+                              alt={member.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-foreground">{member.name}</h4>
+                            <p className="text-primary text-sm">{member.role}</p>
+                          </div>
                         </div>
-                        <div>
-                          <h4 className="font-semibold text-foreground">{member.name}</h4>
-                          <p className="text-primary text-sm">{member.role}</p>
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
