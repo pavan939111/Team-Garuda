@@ -1,6 +1,12 @@
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { Users2 } from 'lucide-react';
 import vchandrasekhar from '@/assets/vchandrasekhar.jpg';
 
 interface Mentor {
@@ -71,37 +77,40 @@ const MentorsSection = () => {
   ];
 
   return (
-    <section id="mentors" className="py-20">
+    <section id="mentors" className="py-16 sm:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold font-montserrat mb-4">
-            Our <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Mentors</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="flex items-center justify-center mb-4">
+            <Users2 className="h-10 w-10 sm:h-12 sm:w-12 text-accent mr-3 sm:mr-4" />
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-montserrat">
+              <span className="bg-gradient-to-b from-[#FFD700] to-white bg-clip-text text-transparent">Guiding Mentors</span>
+            </h2>
+          </div>
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Guided by industry experts and academic leaders who shape our innovation journey
           </p>
         </div>
 
         <div className="relative">
-          <div className="flex space-x-6 overflow-x-auto pb-6 scrollbar-thin scrollbar-thumb-primary scrollbar-track-muted">
+          <div className="flex space-x-4 sm:space-x-6 overflow-x-auto pb-6 scrollbar-thin scrollbar-thumb-primary scrollbar-track-muted">
             {mentors.map((mentor) => (
               <div
                 key={mentor.id}
-                className="flex-shrink-0 w-80 card-tech cursor-pointer group transform transition-all duration-300 hover:scale-105"
+                className="flex-shrink-0 w-72 sm:w-80 card-tech cursor-pointer group transform transition-all duration-300 hover:scale-105"
                 onClick={() => setSelectedMentor(mentor)}
               >
                 <div className="space-y-4">
                   <div className="relative">
-                    <div className="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-4 border-primary/30">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full overflow-hidden mb-4 border-4 border-primary/30">
                       <img src={mentor.image} alt={mentor.name} className="w-full h-full object-cover" />
                     </div>
                   </div>
 
                   <div className="text-center space-y-2">
-                    <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                    <h3 className="text-lg sm:text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
                       {mentor.name}
                     </h3>
-                    <p className="text-primary font-medium">{mentor.role}</p>
+                    <p className="text-primary font-medium text-sm sm:text-base">{mentor.role}</p>
                     <p className="text-sm text-muted-foreground">{mentor.department}</p>
                   </div>
 
@@ -140,10 +149,10 @@ const MentorsSection = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="space-y-4">
                 <div className="text-center">
-                  <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-primary/30">
+                  <div className="w-28 h-28 sm:w-32 sm:h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-primary/30">
                     <img src={selectedMentor.image} alt={selectedMentor.name} className="w-full h-full object-cover" />
                   </div>
-                  <h3 className="text-xl font-semibold">{selectedMentor.name}</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold">{selectedMentor.name}</h3>
                   <p className="text-primary font-medium">{selectedMentor.role}</p>
                   <p className="text-sm text-muted-foreground">{selectedMentor.department}</p>
                 </div>

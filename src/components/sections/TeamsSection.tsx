@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Github, Linkedin, Mail, User } from 'lucide-react';
+import { Github, Linkedin, Mail, User, Users } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 
@@ -117,14 +117,17 @@ const TeamsSection = () => {
   };
 
   return (
-    <section id="team" className="py-20 bg-gradient-to-br from-muted/10 to-background">
+    <section id="teams" className="py-20 bg-gradient-to-br from-background to-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold font-montserrat mb-4">
-            Our <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Team</span>
-          </h2>
+          <div className="flex items-center justify-center mb-4">
+            <Users className="h-8 w-8 text-accent mr-3" />
+            <h2 className="text-4xl md:text-5xl font-bold font-montserrat">
+              Our <span className="bg-gradient-to-r from-accent to-accent bg-clip-text text-transparent">Team</span>
+            </h2>
+          </div>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Meet the brilliant minds driving innovation and excellence in every project
+            Meet the passionate individuals driving innovation and excellence in our go-kart project
           </p>
         </div>
 

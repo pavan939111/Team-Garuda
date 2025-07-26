@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { Handshake } from 'lucide-react';
 import logo from '@/assets/logos11.jpg';
 interface Sponsor {
   id: number;
@@ -71,12 +72,16 @@ const SponsorshipSection = () => {
   return (
     <section id="sponsorship" className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Responsive Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold font-montserrat mb-4">
-            Our <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Sponsors</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Partnering with industry leaders who believe in our vision and support our innovation journey
+          <div className="flex items-center justify-center gap-x-2 mb-4">
+            <Handshake className="h-7 w-7 md:h-12 md:w-12 text-accent" />
+            <h2 className="font-bold font-montserrat text-lg md:text-4xl lg:text-5xl bg-gradient-to-b from-[#FFD700] to-white bg-clip-text text-transparent whitespace-nowrap">
+              Sponsorship & Partners
+            </h2>
+          </div>
+          <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
+            We are grateful for the support and collaboration from our esteemed sponsors and partners.
           </p>
         </div>
 

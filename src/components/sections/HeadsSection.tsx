@@ -1,6 +1,12 @@
+
+
+
+
+
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { Crown } from 'lucide-react';
 import vchandrasekhar from '@/assets/vchandrasekhar.jpg';
 
 interface Head {
@@ -21,7 +27,8 @@ interface Head {
 const HeadsSection = () => {
   const [selectedHead, setSelectedHead] = useState<Head | null>(null);
 
-  const heads: Head[] = [
+
+    const heads: Head[] = [
     {
       id: 1,
       name: "Arjun Reddy",
@@ -121,17 +128,22 @@ const HeadsSection = () => {
   ];
 
   return (
-    <section id="heads" className="py-20 bg-gradient-to-br from-background to-muted/20">
+    <section id="heads" className="py-10 bg-gradient-to-br from-background to-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold font-montserrat mb-4">
-            Team <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Leadership</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+        {/* Updated Title Block */}
+        <div className="text-center mb-8">
+           <div className="flex items-center justify-center mb-4">
+            <Crown className="h-10 w-10 sm:h-12 sm:w-12 text-accent mr-3 sm:mr-4" />
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-montserrat">
+              <span className="bg-gradient-to-b from-[#FFD700] to-white bg-clip-text text-transparent">Leadership Team</span>
+            </h2>
+          </div>
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Meet the visionary leaders who drive our team towards excellence and innovation
           </p>
         </div>
 
+        {/* Scrollable Cards */}
         <div className="relative">
           <div className="flex space-x-6 overflow-x-auto pb-6 scrollbar-thin scrollbar-thumb-primary scrollbar-track-muted">
             {heads.map((head) => (
@@ -189,6 +201,7 @@ const HeadsSection = () => {
         </div>
       </div>
 
+      {/* Dialog */}
       <Dialog open={!!selectedHead} onOpenChange={() => setSelectedHead(null)}>
         <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -279,3 +292,4 @@ const HeadsSection = () => {
 };
 
 export default HeadsSection;
+

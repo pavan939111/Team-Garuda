@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -66,9 +66,14 @@ const LiveUpdatesSection = () => {
 
   return (
     <section id="live-updates" className="py-20 bg-background">
-      <h2 className="text-center bg-gradient-to-r from-[#FFD700] to-[#ecc783] bg-clip-text text-transparent text-4xl md:text-5xl font-bold font-montserrat mb-4">
-        Live Project Updates
-      </h2>
+      <div className="text-center mb-8">
+        <div className="flex items-center justify-center gap-x-2 mb-4">
+          <RefreshCw className="h-7 w-7 md:h-12 md:w-12 text-accent" />
+          <h2 className="font-bold font-montserrat text-xl md:text-4xl lg:text-5xl bg-gradient-to-b from-[#FFD700] to-white bg-clip-text text-transparent whitespace-nowrap">
+            Project Updates
+          </h2>
+        </div>
+      </div>
 
       <div className="relative  px-10">
         <button
@@ -86,7 +91,7 @@ const LiveUpdatesSection = () => {
             <div
               key={update.id}
               onClick={() => setSelectedUpdate(update)}
-              className="min-w-[300px] max-w-[300px] p-5 rounded-2xl bg-card shadow-md border border-border transition-transform cursor-pointer hover:scale-104 hover:border-[#FFD700] hover:shadow-[0_4px_20px_rgba(255,215,0,0.5)]"
+              className="min-w-[300px] max-w-[300px] p-5 rounded-2xl bg-card shadow-md border border-border transition-transform cursor-pointer hover:scale-104 hover:border-blue-500 hover:shadow-[0_4px_20px_rgba(59,130,246,0.3)]"
             >
               <img
                 src={update.image}
@@ -97,6 +102,7 @@ const LiveUpdatesSection = () => {
                 <h3 className="text-lg font-semibold text-accent">
                   {update.title}
                 </h3>
+                
                 <p className="text-sm text-muted-foreground mt-1 line-clamp-3">
                   {update.summary}
                 </p>

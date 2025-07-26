@@ -108,17 +108,18 @@ const EventsSection = () => {
   }, [showGalleryId]);
 
   return (
-    <section id="events" className="py-20 bg-gradient-to-br from-background to-muted/20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold font-montserrat mb-4">
-            Our{' '}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Events
-            </span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Milestones in our journey of innovation and excellence
+    <section id="events" className="py-10 bg-background">
+      <div className="max-w-7xl mx-auto container-padding">
+        {/* Responsive Section Header */}
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-x-2 mb-4">
+            <Calendar className="h-7 w-7 md:h-12 md:w-12 text-accent" />
+            <h2 className="font-bold font-montserrat text-lg md:text-4xl lg:text-5xl bg-gradient-to-b from-[#FFD700] to-white bg-clip-text text-transparent whitespace-nowrap">
+              Major Events
+            </h2>
+          </div>
+          <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Explore the key events and milestones that have shaped our journey.
           </p>
         </div>
 
