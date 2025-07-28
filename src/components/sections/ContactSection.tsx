@@ -41,7 +41,7 @@ const ContactSection = () => {
         {/* Section Header */}
         <div className="text-center mb-10">
            <div className="flex items-center justify-center mb-4">
-            <MessageCircle className="h-10 w-10 sm:h-12 sm:w-12 text-accent mr-3 sm:mr-4" />
+            {/* <MessageCircle className="h-10 w-10 sm:h-12 sm:w-12 text-accent mr-3 sm:mr-4" /> */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-montserrat">
               <span className="bg-gradient-to-b from-[#FFD700] to-white bg-clip-text text-transparent">Contact Us</span>
             </h2>

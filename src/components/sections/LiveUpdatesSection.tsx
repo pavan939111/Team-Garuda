@@ -68,7 +68,7 @@ const LiveUpdatesSection = () => {
     <section id="live-updates" className="py-20 bg-background">
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-x-2 mb-4">
-          <RefreshCw className="h-7 w-7 md:h-12 md:w-12 text-accent" />
+          {/* <RefreshCw className="h-7 w-7 md:h-12 md:w-12 text-accent" /> */}
           <h2 className="font-bold font-montserrat text-xl md:text-4xl lg:text-5xl bg-gradient-to-b from-[#FFD700] to-white bg-clip-text text-transparent whitespace-nowrap">
             Project Updates
           </h2>
@@ -106,7 +106,7 @@ const LiveUpdatesSection = () => {
                 <p className="text-sm text-muted-foreground mt-1 line-clamp-3">
                   {update.summary}
                 </p>
-              </div>
+              </div>    
             </div>
           ))}
         </div>

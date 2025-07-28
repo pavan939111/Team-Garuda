@@ -90,21 +90,21 @@ const Navbar = () => {
                 <Sparkles size={10} className="text-accent-foreground" />
               </div>
             </div>
-            <div className="text-xl md:text-2xl lg:text-3xl font-bold font-montserrat">
+            <div className="text-xl md:text-2xl lg:text-4xl font-bold font-montserrat">
               <span className="text-foreground">Team</span>
               <span className="ml-1 bg-gradient-to-r from-accent to-accent bg-clip-text text-transparent">Garuda</span>
             </div>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center space-x-1 font-bold  ">
             {navItems.map((item) => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href, item.isRoute)}
                 className="nav-link px-4 py-2"
               >
-                {item.icon}
+                {/* {item.icon} */}
                 {item.name}
               </button>
             ))}

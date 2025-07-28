@@ -133,9 +133,9 @@ const HeadsSection = () => {
         {/* Updated Title Block */}
         <div className="text-center mb-8">
            <div className="flex items-center justify-center mb-4">
-            <Crown className="h-10 w-10 sm:h-12 sm:w-12 text-accent mr-3 sm:mr-4" />
+            {/* <Crown className="h-10 w-10 sm:h-12 sm:w-12 text-accent mr-3 sm:mr-4" /> */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-montserrat">
-              <span className="bg-gradient-to-b from-[#FFD700] to-white bg-clip-text text-transparent">Leadership Team</span>
+              <span className="bg-gradient-to-b from-[#FFD700] to-white bg-clip-text text-transparent"> Administration </span>
             </h2>
           </div>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">

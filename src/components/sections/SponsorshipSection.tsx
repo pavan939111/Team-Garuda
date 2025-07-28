@@ -75,7 +75,7 @@ const SponsorshipSection = () => {
         {/* Responsive Section Header */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-x-2 mb-4">
-            <Handshake className="h-7 w-7 md:h-12 md:w-12 text-accent" />
+            {/* <Handshake className="h-7 w-7 md:h-12 md:w-12 text-accent" /> */}
             <h2 className="font-bold font-montserrat text-lg md:text-4xl lg:text-5xl bg-gradient-to-b from-[#FFD700] to-white bg-clip-text text-transparent whitespace-nowrap">
               Sponsorship & Partners
             </h2>
